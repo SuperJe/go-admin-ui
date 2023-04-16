@@ -1,6 +1,7 @@
 <template>
   <div class="dashboard-editor-container">
     <el-row :gutter="12">
+      <!--
       <el-col :sm="24" :xs="24" :md="6" :xl="6" :lg="6" :style="{ marginBottom: '12px' }">
         <chart-card title="总销售额" total="￥126,560">
           <el-tooltip slot="action" class="item" effect="dark" content="指标说明" placement="top-start">
@@ -17,7 +18,7 @@
           <template slot="footer">日均销售额<span>￥ 234.56</span></template>
         </chart-card>
       </el-col>
-      <el-col :sm="24" :xs="24" :md="6" :xl="6" :lg="6" :style="{ marginBottom: '12px' }">
+       <el-col :sm="24" :xs="24" :md="6" :xl="6" :lg="6" :style="{ marginBottom: '12px' }">
         <chart-card title="访问量" :total="8846">
           <el-tooltip slot="action" class="item" effect="dark" content="指标说明" placement="top-start">
             <i class="el-icon-warning-outline" />
@@ -39,19 +40,92 @@
           <template slot="footer">转化率 <span>60%</span></template>
         </chart-card>
       </el-col>
-      <el-col :sm="24" :xs="24" :md="6" :xl="6" :lg="6" :style="{ marginBottom: '12px' }">
-        <chart-card title="运营活动效果" total="78%">
+    -->
+      <el-col :sm="24" :xs="24" :md="4" :xl="4" :lg="4" :style="{ marginBottom: '12px' }">
+        <chart-card title="地牢" :total = this.progressName(this.allData.camp_progressions.dungeon) >
           <el-tooltip slot="action" class="item" effect="dark" content="指标说明" placement="top-start">
             <i class="el-icon-warning-outline" />
           </el-tooltip>
           <div>
-            <mini-progress color="rgb(19, 194, 194)" :target="80" :percentage="78" height="8px" />
+            <mini-progress color="rgb(139,69,19)" :target="100" :percentage="this.progress(this.allData.camp_progressions.dungeon)" height="8px" />
           </div>
           <template slot="footer">
             <trend flag="top" style="margin-right: 16px;" rate="12">
               <span slot="term">同周比</span>
             </trend>
-            <trend flag="bottom" rate="80">
+            <trend flag="top" rate="80">
+              <span slot="term">日环比</span>
+            </trend>
+          </template>
+        </chart-card>
+      </el-col>
+      <el-col :sm="24" :xs="24" :md="5" :xl="5" :lg="5" :style="{ marginBottom: '12px' }">
+        <chart-card title="森林" :total=this.progressName(this.allData.camp_progressions.forrest)>
+          <el-tooltip slot="action" class="item" effect="dark" content="指标说明" placement="top-start">
+            <i class="el-icon-warning-outline" />
+          </el-tooltip>
+          <div>
+            <mini-progress color="rgb(127,255,0)" :target="100" :percentage="this.progress(this.allData.camp_progressions.forrest)" height="8px" />
+          </div>
+          <template slot="footer">
+            <trend flag="top" style="margin-right: 16px;" rate="12">
+              <span slot="term">同周比</span>
+            </trend>
+            <trend flag="top" rate="80">
+              <span slot="term">日环比</span>
+            </trend>
+          </template>
+        </chart-card>
+      </el-col>
+      <el-col :sm="24" :xs="24" :md="5" :xl="5" :lg="5" :style="{ marginBottom: '12px' }">
+        <chart-card title="沙漠" :total=this.progressName(this.allData.camp_progressions.desert)>
+          <el-tooltip slot="action" class="item" effect="dark" content="指标说明" placement="top-start">
+            <i class="el-icon-warning-outline" />
+          </el-tooltip>
+          <div>
+            <mini-progress color="rgb(255,215,0)" :target="100" :percentage="this.progress(this.allData.camp_progressions.desert)" height="8px" />
+          </div>
+          <template slot="footer">
+            <trend flag="top" style="margin-right: 16px;" rate="12">
+              <span slot="term">同周比</span>
+            </trend>
+            <trend flag="top" rate="80">
+              <span slot="term">日环比</span>
+            </trend>
+          </template>
+        </chart-card>
+      </el-col>
+      <el-col :sm="24" :xs="24" :md="5" :xl="5" :lg="5" :style="{ marginBottom: '12px' }">
+        <chart-card title="山峰" :total=this.progressName(this.allData.camp_progressions.mountain)>
+          <el-tooltip slot="action" class="item" effect="dark" content="指标说明" placement="top-start">
+            <i class="el-icon-warning-outline" />
+          </el-tooltip>
+          <div>
+            <mini-progress color="rgb(238,207,161)" :target="100" :percentage="this.progress(this.allData.camp_progressions.mountain)" height="8px" />
+          </div>
+          <template slot="footer">
+            <trend flag="top" style="margin-right: 16px;" rate="12">
+              <span slot="term">同周比</span>
+            </trend>
+            <trend flag="top" rate="80">
+              <span slot="term">日环比</span>
+            </trend>
+          </template>
+        </chart-card>
+      </el-col>
+      <el-col :sm="24" :xs="24" :md="5" :xl="5" :lg="5" :style="{ marginBottom: '12px' }">
+        <chart-card title="冰川" :total=this.progressName(this.allData.camp_progressions.glacier)>
+          <el-tooltip slot="action" class="item" effect="dark" content="指标说明" placement="top-start">
+            <i class="el-icon-warning-outline" />
+          </el-tooltip>
+          <div>
+            <mini-progress color="rgb(99,184,255)" :target="100" :percentage="this.progress(this.allData.camp_progressions.glacier)" height="8px" />
+          </div>
+          <template slot="footer">
+            <trend flag="top" style="margin-right: 16px;" rate="12">
+              <span slot="term">同周比</span>
+            </trend>
+            <trend flag="top" rate="80">
               <span slot="term">日环比</span>
             </trend>
           </template>
@@ -90,6 +164,7 @@
 </template>
 
 <script>
+import {allDashboard} from '@/api/admin/dashboard'
 import ChartCard from '@/components/ChartCard'
 import Trend from '@/components/Trend'
 import MiniArea from '@/components/MiniArea'
@@ -134,11 +209,29 @@ export default {
     return {
       barData,
       barData2,
-      rankList
+      rankList,
+      allData:undefined,
     }
   },
+  created() {
+    this.getAll()
+  },
   methods: {
-  }
+      getAll() {
+          this.loading = true
+          allDashboard().then(response => {
+              this.allData = response.data
+              console.log("test this.allData.camp_progressions:", this.allData.camp_progressions)
+          }
+        )
+      },
+      progress(p) {
+        return 100*(p.done/p.total)
+      },
+      progressName(p) {
+        return p.done + "/" + p.total
+      }
+    }
 }
 </script>
 
