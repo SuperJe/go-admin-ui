@@ -50,11 +50,11 @@
             <mini-progress color="rgb(139,69,19)" :target="100" :percentage="this.progress(this.allData.camp_progressions.dungeon)" height="8px" />
           </div>
           <template slot="footer">
-            <trend flag="top" style="margin-right: 16px;" rate="12">
-              <span slot="term">同周比</span>
+            <trend flag="top" style="margin-right: 16px;" :rate=this.progress(this.allData.camp_progressions.dungeon)>
+              <span slot="term">完成 </span>
             </trend>
-            <trend flag="top" rate="80">
-              <span slot="term">日环比</span>
+            <trend flag="bottom" :rate=this.progressLeft(this.allData.camp_progressions.dungeon)>
+              <span slot="term">剩余 </span>
             </trend>
           </template>
         </chart-card>
@@ -68,11 +68,11 @@
             <mini-progress color="rgb(127,255,0)" :target="100" :percentage="this.progress(this.allData.camp_progressions.forrest)" height="8px" />
           </div>
           <template slot="footer">
-            <trend flag="top" style="margin-right: 16px;" rate="12">
-              <span slot="term">同周比</span>
+            <trend flag="top" style="margin-right: 16px;" :rate=this.progress(this.allData.camp_progressions.forrest)>
+              <span slot="term">完成 </span>
             </trend>
-            <trend flag="top" rate="80">
-              <span slot="term">日环比</span>
+            <trend flag="bottom" :rate=this.progressLeft(this.allData.camp_progressions.forrest)>
+              <span slot="term">剩余 </span>
             </trend>
           </template>
         </chart-card>
@@ -86,11 +86,11 @@
             <mini-progress color="rgb(255,215,0)" :target="100" :percentage="this.progress(this.allData.camp_progressions.desert)" height="8px" />
           </div>
           <template slot="footer">
-            <trend flag="top" style="margin-right: 16px;" rate="12">
-              <span slot="term">同周比</span>
+            <trend flag="top" style="margin-right: 16px;" :rate=this.progress(this.allData.camp_progressions.desert)>
+              <span slot="term">完成 </span>
             </trend>
-            <trend flag="top" rate="80">
-              <span slot="term">日环比</span>
+            <trend flag="bottom" :rate=this.progressLeft(this.allData.camp_progressions.desert)>
+              <span slot="term">剩余 </span>
             </trend>
           </template>
         </chart-card>
@@ -104,11 +104,11 @@
             <mini-progress color="rgb(238,207,161)" :target="100" :percentage="this.progress(this.allData.camp_progressions.mountain)" height="8px" />
           </div>
           <template slot="footer">
-            <trend flag="top" style="margin-right: 16px;" rate="12">
-              <span slot="term">同周比</span>
+            <trend flag="top" style="margin-right: 16px;" :rate=this.progress(this.allData.camp_progressions.mountain)>
+              <span slot="term">完成 </span>
             </trend>
-            <trend flag="top" rate="80">
-              <span slot="term">日环比</span>
+            <trend flag="top" :rate=this.progressLeft(this.allData.camp_progressions.mountain)>
+              <span slot="term">剩余 </span>
             </trend>
           </template>
         </chart-card>
@@ -122,11 +122,11 @@
             <mini-progress color="rgb(99,184,255)" :target="100" :percentage="this.progress(this.allData.camp_progressions.glacier)" height="8px" />
           </div>
           <template slot="footer">
-            <trend flag="top" style="margin-right: 16px;" rate="12">
-              <span slot="term">同周比</span>
+            <trend flag="top" style="margin-right: 16px;" :rate=this.progress(this.allData.camp_progressions.glacier)>
+              <span slot="term">完成 </span>
             </trend>
-            <trend flag="top" rate="80">
-              <span slot="term">日环比</span>
+            <trend flag="top" :rate=this.progressLeft(this.allData.camp_progressions.glacier)>
+              <span slot="term">剩余 </span>
             </trend>
           </template>
         </chart-card>
@@ -226,7 +226,10 @@ export default {
         )
       },
       progress(p) {
-        return 100*(p.done/p.total)
+        return (100*(p.done/p.total)).toFixed(2)
+      },
+      progressLeft(p) {
+        return (100-this.progress(p)).toFixed(2)
       },
       progressName(p) {
         return p.done + "/" + p.total
